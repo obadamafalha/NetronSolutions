@@ -68,25 +68,33 @@
                     </thead>
 
                     <tbody>
-                        @foreach ($data as $item)
+                        @foreach ($finalResult as $item)
                             <tr>
-                                <th scope="row">{{ $item['OfferId'] }}</th>
-                                <td>{{ $item['Caree'] }}</td>
-                                <td>{{ $item['TotalFare'] }} {{ $item['Currency'] }}</td>
-                                <td>{{ $item['CabinClass'] }}</td>
+                                <th scope="row">{{ $item['flight_code'] }}</th>
+                                <td>{{ $item['caree'] }}</td>
+                                <td>{{ $item['total_price'] }}</td>
+                                <td>{{ $item['cabin_class'] }}</td>
                                 <td>
-                                    @foreach ($item['Segments'][0] as $item2)
-                                        <div class="row">
-                                            {{ $item2['DepFrom'] }}
-                                        </div>
-                                    @endforeach
+                                    @if (is_array($item['dep_from']))
+                                        @foreach ($item['dep_from'] as $item2)
+                                            <div class="row">
+                                                {{ $item2['DepFrom'] }}
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        {{ $item['dep_from'] }}
+                                    @endif
                                 </td>
                                 <td>
-                                    @foreach ($item['Segments'][0] as $item2)
-                                        <div class="row">
-                                            {{ $item2['ArrTo'] }}
-                                        </div>
-                                    @endforeach
+                                    @if (is_array($item['arr_to']))
+                                        @foreach ($item['arr_to'] as $item2)
+                                            <div class="row">
+                                                {{ $item2['ArrTo'] }}
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        {{ $item['arr_to'] }}
+                                    @endif
                                 </td>
 
                             </tr>
